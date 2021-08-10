@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        
+        <div id ="content"></div>
+        <script async defer>
+            $(document).ready(function() {
+        $.ajax({
+          url: "https://api.covidhospitalsbd.com/api/available",
+          type: "GET",
+          dataType: "json",
+          success: function(result) {
+            var table = $("<table><tr><th><center><a href ='https://covidhospitalsbd.com/' target='_blank'>Beds availability @ covidhospitalsbd.com</a></center></th></tr>");
+            table.append("<tr class='bg-warning text-white '><td >ICU Beds available: </td><td class='font-weight-bolder'>" + result["icu"] + "</td></tr>");
+            table.append("<tr class='bg-info text-white'><td>High Flow Nasal Canula Beds available: </td><td class='font-weight-bolder'>" + result["hfnc"] + "</td></tr>");
+            table.append("<tr class='bg-danger text-white'><td>High Dependency Unit Beds available: </td><td class='font-weight-bolder'>" + result["hdu"] + "</td></tr>");
+            table.append("<tr class='bg-success text-white'><td >General Beds available: </td><td class='font-weight-bolder'> " + result["gb"] + "</td></tr></table>");
+            console.log(result);
+            $("#content").html(table);
+          },
+          error: function(error) {
+            console.log(error);
+          }
+        });
+      });
+        </script>
+    </body>
+</html>
